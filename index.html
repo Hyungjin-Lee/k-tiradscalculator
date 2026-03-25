@@ -248,10 +248,43 @@ footer a { color: var(--gray-500); }
 </head>
 <body>
 
+<nav style="
+  position: sticky;
+  top: 0;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+">
+  <span style="font-weight:600; font-size:15px; color:#111827;">
+    K-TIRADS Calculator
+  </span>
+  <a href="#contact" style="
+    font-size:14px;
+    color:#2563eb;
+    text-decoration:none;
+  ">Contact</a>
+</nav>
+
 <header>
   <div class="container">
     <h1>K-TIRADS 계산기</h1>
     <p>2021 Korean Thyroid Imaging Reporting and Data System Calculator</p>
+    <p style="
+      font-size: 14px;
+      color: #6b7280;
+      text-align: center;
+      margin-top: 4px;
+      margin-bottom: 0;
+      line-height: 1.8;
+    ">
+      Hyungjin Lee, MD<br>
+      Department of Radiology, Korea
+    </p>
   </div>
 </header>
 
@@ -626,9 +659,94 @@ footer a { color: var(--gray-500); }
   </div>
 </div>
 
-<footer>
-  <div class="container">
+<section id="contact" style="
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  padding: 48px 24px;
+  text-align: center;
+">
+
+  <!-- Korean -->
+  <div class="lang-ko">
+    <h3 style="font-size:17px; font-weight:600; color:#111827; margin-bottom:16px;">
+      제작자 정보
+    </h3>
+    <p style="font-size:15px; font-weight:600; color:#111827; margin-bottom:2px;">
+      이형진 (Hyungjin Lee, MD)
+    </p>
+    <p style="font-size:14px; color:#6b7280; margin-bottom:24px;">
+      Department of Radiology, Korea
+    </p>
+    <p style="font-size:13px; color:#6b7280; margin-bottom:6px;">
+      문의 및 피드백
+    </p>
+    <a href="mailto:260023@kdh.or.kr" style="
+      font-size:15px;
+      color:#2563eb;
+      text-decoration:none;
+      border-bottom:1px solid #2563eb;
+      padding-bottom:1px;
+    ">260023@kdh.or.kr</a>
+    <p style="font-size:12px; color:#9ca3af; margin-top:24px; line-height:1.8;">
+      본 계산기는 2021 K-TIRADS 가이드라인(대한갑상선영상의학회)을 기반으로 하며,<br>
+      임상적 의사결정의 보조 도구로만 사용하시기 바랍니다.
+    </p>
   </div>
+
+  <!-- English -->
+  <div class="lang-en" style="display:none;">
+    <h3 style="font-size:17px; font-weight:600; color:#111827; margin-bottom:16px;">
+      About
+    </h3>
+    <p style="font-size:15px; font-weight:600; color:#111827; margin-bottom:2px;">
+      Hyungjin Lee, MD
+    </p>
+    <p style="font-size:14px; color:#6b7280; margin-bottom:24px;">
+      Department of Radiology, Korea
+    </p>
+    <p style="font-size:13px; color:#6b7280; margin-bottom:6px;">
+      Contact & Feedback
+    </p>
+    <a href="mailto:260023@kdh.or.kr" style="
+      font-size:15px;
+      color:#2563eb;
+      text-decoration:none;
+      border-bottom:1px solid #2563eb;
+      padding-bottom:1px;
+    ">260023@kdh.or.kr</a>
+    <p style="font-size:12px; color:#9ca3af; margin-top:24px; line-height:1.8;">
+      This calculator is based on the 2021 K-TIRADS guidelines<br>
+      (Korean Society of Thyroid Radiology) and is intended<br>
+      for educational and clinical decision support only.
+    </p>
+  </div>
+
+</section>
+
+<footer style="
+  background: #1f2937;
+  color: #d1d5db;
+  text-align: center;
+  padding: 24px 20px;
+  font-size: 13px;
+  line-height: 2;
+">
+  <p style="margin:0; color:#f9fafb; font-weight:500;">
+    Hyungjin Lee, MD
+  </p>
+  <p style="margin:0; color:#9ca3af;">
+    Department of Radiology, Korea
+  </p>
+  <p style="margin:4px 0 0;">
+    <a href="mailto:260023@kdh.or.kr"
+       style="color:#93c5fd; text-decoration:none;">
+      260023@kdh.or.kr
+    </a>
+  </p>
+  <p style="margin:8px 0 0; color:#6b7280; font-size:12px;">
+    © 2024 K-TIRADS Calculator ·
+    Based on 2021 KSThR Guidelines
+  </p>
 </footer>
 
 <script>
@@ -960,6 +1078,13 @@ footer a { color: var(--gray-500); }
       document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       reportLang = btn.dataset.lang;
+      if (btn.dataset.lang === 'ko') {
+        document.querySelectorAll('.lang-ko').forEach(el => el.style.display = 'block');
+        document.querySelectorAll('.lang-en').forEach(el => el.style.display = 'none');
+      } else {
+        document.querySelectorAll('.lang-en').forEach(el => el.style.display = 'block');
+        document.querySelectorAll('.lang-ko').forEach(el => el.style.display = 'none');
+      }
       renderReport();
     });
   });
