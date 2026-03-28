@@ -1209,9 +1209,19 @@ footer a { color: var(--gray-500); }
     $('report-text').textContent = reportLang === 'ko' ? buildConciseKo(result) : buildConciseEn(result);
   }
 
+  const siLabels = {
+    ko: { ln: '\ub9bc\ud504\uc808 \uc804\uc774 \uc758\uc2ec', invasion: '\uc778\uc811 \uad6c\uc870\ubb3c \uce68\ubc94 \uc758\uc2ec', distant: '\uc6d0\uaca9 \uc804\uc774 \uc758\uc2ec', mtc: '\uac11\uc0c1\uc120 \uc218\uc9c8\uc554 \uc758\uc2ec' },
+    en: { ln: 'suspected LN metastasis', invasion: 'suspected invasion', distant: 'suspected distant metastasis', mtc: 'suspected medullary thyroid cancer' }
+  };
+
   function getRecText(t, size, lang) {
     const si = document.querySelectorAll('#special-biopsy input:checked');
-    if (si.length > 0) return lang === 'ko' ? 'FNA \uad8c\uace0 (\uc784\uc0c1\uc801 \uc801\uc751\uc99d)' : 'FNA recommended (clinical indication)';
+    if (si.length > 0) {
+      const reasons = Array.from(si).map(cb => siLabels[lang][cb.dataset.si]).join(', ');
+      return lang === 'ko'
+        ? 'FNA \uad8c\uace0 \u2014 ' + reasons + ' (\ud06c\uae30\uc5d0 \uad00\uacc4\uc5c6\uc774 \uc2dc\ud589)'
+        : 'FNA recommended \u2014 ' + reasons + ' (regardless of size)';
+    }
     // Non-nodular patterns — FNA regardless of size
     if (S.special.includes('extensivePEF')) return lang === 'ko' ? 'FNA \uad8c\uace0 (\uac00\uc7a5 \uc758\uc2ec\ub418\ub294 \ubd80\uc704\uc5d0\uc11c \uc2dc\ud589)' : 'FNA recommended (at most suspicious area)';
     if (S.special.includes('infiltrative')) return lang === 'ko' ? 'FNA \ub610\ub294 CNB \uad8c\uace0 (\uc870\uc9c1\ud559\uc801 \uc9c4\ub2e8 \ud544\uc694)' : 'FNA or CNB recommended (histological diagnosis needed)';
